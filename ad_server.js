@@ -1,3 +1,5 @@
+// This is a node.js implementation of a simple distributed resource dispatcherm
+
 var sys = require('sys'),
 		http = require('http'),
 		Resource = require('./vendor/resource').Resource,
