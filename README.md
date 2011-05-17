@@ -1,12 +1,13 @@
 # Pervasive
-Pervasive is a simple prototype of a distributed and asynchronous resource dispatcher In order to use it you
-need to have node.js installed. 
+Pervasive is a simple prototype of a distributed and asynchronous resource dispatcher. It requires Node.js
 
 ##Node.js Installation
 
 <pre><code>
 Go to http://nodejs.org/ for more information about Node.js and its installation.
-
+</code></pre>
+### Quick tip
+<pre><code>
 If you are on Mac OS X and using homebrew as your package manager, [sudo] brew install node should do. You
 should also install npm, the node.js package manager.
 </code></pre>
