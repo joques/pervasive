@@ -7,14 +7,18 @@ stored. Pervasive then identifies the devices, which might be interested in disp
 Pervasive is implemented in Node.js
 
 # Node.js Installation
-<pre><code>
+
 Go to http://nodejs.org/ for more information about Node.js and its installation.
-</code></pre>
+
 ### Quick tip
+
+If you are on Mac OS X and using homebrew as your package manager, the following command should do.
+
 <pre><code>
-If you are on Mac OS X and using homebrew as your package manager, [sudo] brew install node should do. You
-should also install npm, the node.js package manager.
+[sudo] brew install node
 </code></pre>
+
+You should also install npm, the node.js package manager.
 
 # App Usage
 To use our small app, first start the web server <code node ad_server>
