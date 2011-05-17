@@ -16,7 +16,7 @@ If you are on Mac OS X and using homebrew as your package manager, the following
 
 ### Cloning the repository
 
-When cloning the repository, make sure to include the modules (with the right versions).
+When cloning the repository, make sure to include the submodules (with the right versions).
 
 <pre><code>
 [sudo] brew install node
