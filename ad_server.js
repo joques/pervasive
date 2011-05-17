@@ -1,13 +1,10 @@
-// This is a node.js implementation of a simple distributed resource dispatcherm
-
-var sys = require('sys'),
-		http = require('http'),
-		Resource = require('./vendor/resource').Resource,
-		Queue = require('./vendor/queue').Queue,
-		LocalManager = require('./vendor/local_manager').LocalManager,
-		CentralManager = require('./vendor/central_manager').CentralManager;
-		
-
+var sys							=	require('sys');
+var http						=	require('http');
+var Resource				=	require('./vendor/resource').Resource;
+var Queue						=	require('./vendor/queue').Queue;
+var LocalManager		=	require('./vendor/local_manager').LocalManager;
+var CentralManager	=	require('./vendor/central_manager').CentralManager;
+var Device					=	require('./vendor/device').Device;
 
 var ports = [3356, 3358, 3360, 3362, 3364, 3366 ];		
 
@@ -34,6 +31,17 @@ var queue4 = new Queue("entertainment");
 queue4.addLocalManager(local_men[1]);
 queue4.addLocalManager(local_men[3]);
 queue4.addLocalManager(local_men[5]);
+
+
+device_names = ["Timbuktu", "Gao", "Jos", "Mombassa", "Harare", "Cairo"];
+
+var devices = new Array(6);
+for (var l = 0; l < 6; l++) {	
+	devices[l] = new Device(device_names[l], ports[l]);
+	devices[l].setBehavior(devices[l]);
+	devices[l].connect();
+}
+
 
 // create the central manager
 var commander = new CentralManager();

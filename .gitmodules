@@ -1,0 +1,3 @@
+[submodule "vendor/Socket.io-node-client"]
+	path = vendor/Socket.io-node-client
+	url = git://github.com/remy/Socket.io-node-client.git

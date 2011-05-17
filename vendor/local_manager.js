@@ -1,33 +1,52 @@
-exports.LocalManager = LocalManager;
-var fs = require("fs"),
-		net = require("net");
+var fs		=	require("fs");
+var http	= require("http");
+var sys		=	require("sys");
+var path	=	require("path");
+var io		=	require("socket.io");
 
-LocalManager = (function() {
+exports.LocalManager = (function() {
 	function LocalManager(port_number) {
-		this.devices = new Array();
+		this.devices = [];
 		var that = this;
-		this.manager_server = net.createServer(function(socket) {
-			that.devices.push(socket);
-
-			socket.write('hello\r\n');
-			socket.on('end', function() {
-				that.devices.splice(that.devices.indexOf(socket), 1);
-			});		
-		}).listen(port_number, "localhost");		
-	}
-
-	LocalManager.prototype.receiveResource = function receiveResource(resource) {
-		var resource_file_name = resource.file_name;
-		var that = this;
-
-		fs.readFile(resource_file_name, function(err, buffer) {
-			if (!err) {
-				that.devices.forEach(function(device) {
-					device.write(buffer);
-				});
-			}
+		
+		var local_man_server = http.createServer(function(request, response) {
+			response.writeHead(200, {'Content-Type': 'text/html'}); 
+		 	// response.end('Hello world');
 		});
-	};
+		
+		local_man_server.listen(port_number);
+		var device_socket = io.listen(local_man_server);
+		
+		device_socket.on('connection', function(device) {
+			that.devices.push(device);
+			
+			device.on('message', function(msg) {
+				sys.puts("new message from device " + msg);
+			})
+			
+			device.on('disconnect', function() {
+				var pos_socket = that.devices.indexOf(device);
+				if (pos_socket != -1) {
+					that.devices.splice(pos_socket, 1);
+					Sys.puts("A device has disconnected");
+				}
+			});
+		});
+						
+		LocalManager.prototype.receiveResource = function receiveResource(resource) {
+			var resource_file_name = resource.file_name;
+			var resource_file_path =  path.join(__dirname, '../ads/', resource_file_name);
+			
+			fs.readFile(resource_file_path, function(err, file_content) {
+				if (!err) {
+					that.devices.forEach(function(device){
+						sys.puts("sending file to device ctn = " + file_content);
+						device.send(file_content);
+					});
+				}
+			});
+		};
+	}
 	
 	return LocalManager;	
 	
