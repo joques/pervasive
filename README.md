@@ -14,6 +14,10 @@ Go to http://nodejs.org/ for more information about Node.js and its installation
 
 If you are on Mac OS X and using homebrew as your package manager, the following command should do.
 
+### Cloning the repository
+
+When cloning the repository, make sure to include the modules (with the right versions).
+
 <pre><code>
 [sudo] brew install node
 </code></pre>

@@ -12,8 +12,8 @@ exports.Device = function Device(name, port_number) {
 				that.socket.send("Hi! am " + obj.name);
 			});
 			
-			this.socket.on('message', function(msg) {
-				sys.puts("New data from Local Server" + msg);
+			this.socket.on('message', function(data) {
+				console.log("New data from Local Server" + JSON.stringify(data));
 			});
 		};
 		

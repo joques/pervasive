@@ -11,7 +11,7 @@ exports.LocalManager = (function() {
 		
 		var local_man_server = http.createServer(function(request, response) {
 			response.writeHead(200, {'Content-Type': 'text/html'}); 
-		 	// response.end('Hello world');
+		 	response.end('Hello world');
 		});
 		
 		local_man_server.listen(port_number);
@@ -21,7 +21,7 @@ exports.LocalManager = (function() {
 			that.devices.push(device);
 			
 			device.on('message', function(msg) {
-				sys.puts("new message from device " + msg);
+				sys.puts("new message from device :: " + msg);
 			})
 			
 			device.on('disconnect', function() {
@@ -37,11 +37,12 @@ exports.LocalManager = (function() {
 			var resource_file_name = resource.file_name;
 			var resource_file_path =  path.join(__dirname, '../ads/', resource_file_name);
 			
-			fs.readFile(resource_file_path, function(err, file_content) {
+			fs.readFile(resource_file_path, 'utf8', function(err, file_content) {
 				if (!err) {
 					that.devices.forEach(function(device){
-						sys.puts("sending file to device ctn = " + file_content);
-						device.send(file_content);
+						// console.log("sending file to device ctn = " + file_content);
+						// device.send(JSON.stringify({resource: file content}));
+						device.send({res:file_content});
 					});
 				}
 			});

@@ -9,10 +9,7 @@ var Device					=	require('./vendor/device').Device;
 var ports = [3356, 3358, 3360, 3362, 3364, 3366 ];		
 
 // create six local managers
-var local_men = new Array(6);
-for (var k = 0; k < 6; k++) {
-	local_men[k] = new LocalManager(ports[k]);
-}
+var local_men = create_local_managers(ports, false);
 
 // create four queues
 var queue1 = new Queue("energy");
@@ -67,6 +64,18 @@ var server = http.createServer(function(req, res) {
 });
 
 server.listen(8080);
+
+function create_local_managers(ports, with_tcp) {
+	local_men = new Array(6);
+	
+	if (!with_tcp) {
+		for (var k = 0; k < 6; k++) {
+			local_men[k] = new LocalManager(ports[k]);
+		}
+	}
+	
+	return local_men;
+}
 
 function process_resource(resource_data) {
 	
