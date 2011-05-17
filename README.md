@@ -20,8 +20,8 @@ should also install npm, the node.js package manager.
 To use our small app, first start the web server <code node ad_server>
 
 At this point, you have two choices:
-1. Either use a TCP connection between the devices and Pervasive
-2. Or use WebSockets
+* Either use a TCP connection between the devices and Pervasive
+* Or use WebSockets
 
 <pre><code>
 Then start the clients that will eventually receive the resources. As an example we open an nc connection
