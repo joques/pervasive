@@ -1,7 +1,7 @@
 var sys							=	require('sys');
 var http						=	require('http');
-var Resource				=	require('./vendor/resource').Resource;
-var setup						=	require('./vendor/setup_tcp');
+var Resource				=	require('./lib/resource').Resource;
+var setup						=	require('./lib/setup_tcp');
 
 var commander = setup.createManager();
 
