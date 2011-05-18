@@ -25,7 +25,7 @@ When cloning the repository, make sure to include the submodules (with the right
 You should also install npm, the node.js package manager.
 
 # App Usage
-To use our small app, first start the web server <code node ad_server>
+To use our small app, first start the web server <code node pervasive_server_ws> or <code node pervasive_server_tcp>
 
 At this point, you have two choices:
 
