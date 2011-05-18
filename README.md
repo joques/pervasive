@@ -48,7 +48,7 @@ Here, you don't have to do anything. The devices will be created for you automat
 Finally, open a Web connection as follows. Here again you can just do if from the terminal with curl. 
 
 <pre><code>
-curl -d "topic=val&topic=val&file_name=myres" localhost:8080 (the web server is running on port 8080)
+curl -d "topic=val&topic=energy&file_name=ad1.txt" localhost:8080 (the web server is running on port 8080)
 </code></pre>
 
 The resource will be assigned depending on the topics and the content of the file ads/myres will be sent to the devices too.
