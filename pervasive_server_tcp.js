@@ -1,52 +1,9 @@
 var sys							=	require('sys');
 var http						=	require('http');
 var Resource				=	require('./vendor/resource').Resource;
-var Queue						=	require('./vendor/queue').Queue;
-var LocalManager		=	require('./vendor/local_manager').LocalManager;
-var CentralManager	=	require('./vendor/central_manager').CentralManager;
-var Device					=	require('./vendor/device').Device;
+var setup						=	require('./vendor/setup_tcp');
 
-var ports = [3356, 3358, 3360, 3362, 3364, 3366 ];		
-
-// create six local managers
-var local_men = create_local_managers(ports, false);
-
-// create four queues
-var queue1 = new Queue("energy");
-queue1.addLocalManager(local_men[0]);
-queue1.addLocalManager(local_men[1]);
-
-var queue2 = new Queue("transportation");
-queue2.addLocalManager(local_men[2]);
-queue2.addLocalManager(local_men[3]);
-
-var queue3 = new Queue("computer");
-queue3.addLocalManager(local_men[4]);
-queue3.addLocalManager(local_men[5]);
-
-var queue4 = new Queue("entertainment");
-queue4.addLocalManager(local_men[1]);
-queue4.addLocalManager(local_men[3]);
-queue4.addLocalManager(local_men[5]);
-
-
-device_names = ["Timbuktu", "Gao", "Jos", "Mombassa", "Harare", "Cairo"];
-
-var devices = new Array(6);
-for (var l = 0; l < 6; l++) {	
-	devices[l] = new Device(device_names[l], ports[l]);
-	devices[l].setBehavior(devices[l]);
-	devices[l].connect();
-}
-
-
-// create the central manager
-var commander = new CentralManager();
-commander.addQueue(queue1);
-commander.addQueue(queue2);
-commander.addQueue(queue3);
-commander.addQueue(queue4);
-
+var commander = setup.createManager();
 
 // this server handles POST request
 var server = http.createServer(function(req, res) {
@@ -64,18 +21,6 @@ var server = http.createServer(function(req, res) {
 });
 
 server.listen(8080);
-
-function create_local_managers(ports, with_tcp) {
-	local_men = new Array(6);
-	
-	if (!with_tcp) {
-		for (var k = 0; k < 6; k++) {
-			local_men[k] = new LocalManager(ports[k]);
-		}
-	}
-	
-	return local_men;
-}
 
 function process_resource(resource_data) {
 	
