@@ -10,13 +10,13 @@ path	=	require 'path';
 exports.LocalManagerTCP = class LocalManagerTCP
 	constructor: (port_number) -> 
 		@devices = []
-		@manager_server = net.createServer (socket) ->
+		@manager_server = net.createServer((socket) ->
 			@devices.push socket
 			socket.write "Hello\r\n"
 			socket.on('end', -> 
 			pos = @devices.indexOf(socket);
 			@devices.splice(pos, 1) if pos not -1
-			)
+			))
 			@server_manager.listen port_number, "localhost"
 			
 		receiveResource: (resource) ->

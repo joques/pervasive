@@ -7,9 +7,9 @@ io		=	require 'socket.io'
 exports.LocalManager = class LocalManager
 	constructor: (port_number) ->
 		@devices = []
-		local_man_server = http.createServer (request, response) -> 
+		local_man_server = http.createServer((request, response) -> 
 			response.writeHead 200, {'Content-Type': 'text/html'}
-			response.end 'Hello from Pervasive Local Manager'
+			response.end 'Hello from Pervasive Local Manager')
 		local_man_server.listen port_number
 		
 		@device_socket = io.listen local_man_server
