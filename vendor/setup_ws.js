@@ -7,7 +7,7 @@ exports.createManager = function() {
 
 	// create six local managers
 	var local_managers = new Array(6);
-	for (var k = 0: k < 6; k++) {
+	for (var k = 0; k < 6; k++) {
 		local_managers[k] = new LocalManager(ports[k]);
 	}
 	
