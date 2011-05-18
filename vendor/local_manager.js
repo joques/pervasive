@@ -35,7 +35,7 @@ exports.LocalManager = (function() {
 						
 		LocalManager.prototype.receiveResource = function receiveResource(resource) {
 			var resource_file_name = resource.file_name;
-			var resource_file_path =  path.join(__dirname, '../ads/', resource_file_name);
+			var resource_file_path =  path.join(__dirname, '../resources/', resource_file_name);
 			
 			fs.readFile(resource_file_path, 'utf8', function(err, file_content) {
 				if (!err) {
