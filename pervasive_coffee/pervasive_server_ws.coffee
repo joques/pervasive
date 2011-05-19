@@ -7,33 +7,38 @@ commander = setup.createManager()
 
 # this server handles POST request
 
-server = http.createServer((req, res) -> 
-res.writeHead(200, {'Content-Type': 'text/html'})
-# this should be a request object, which handles the params
-reqData = ""
-req.addListener('data', (data) -> reqData += data.toString()).addListener('end', -> 
-process_resource(reqData)
-res.end("New ad received!")
-)
-)
+server = http.createServer (req,res) ->
+	res.writeHead 200, {'Content-Type': 'text/html'}
+	reqData = ""
+	req.addListener 'data', (data) ->
+		reqData += data.toString()
+	.addListener 'end', ->
+		resource = process_resource reqData
+		commander.dispatchResource resource
+		res.end "New ad received!"
+.listen(8080)
 
-server.listen(8080)
 
-process_resource = (resource_data) -> 
- 	# First, extract the different parts of the request
+process_resource = (resource_data) ->
 	res_parts = resource_data.split("&")
-
-	cur_res = new Resource()
-
-	# add parameters to the resource
-	for pos in [0..res_parts.length]
-		do 
-			if res_parts[m].match(/^topic=/i)
-				topic_part = res_parts[m].replace(/^topic=/i, "")
-				cur_res.addTopic(topic_part)
-				
-			if res_parts[m].match(/^file_name=/i)
-				fname_part = res_parts[m].replace(/^file_name=/i, "")
-				cur_res.addFileName(fname_part);
-
-	commander.dispatchResource(cur_res);
+	current_resource = new Resource()
+	
+	console.log("res_parts = #{res_parts} size = #{res_parts.length}")
+	
+	num = res_parts.length
+	num -= 1
+	
+	fill_resource(current_resource, res_parts[num--]) while num >= 0
+	current_resource
+	
+fill_resource = (resource, data_part) ->
+	if data_part.match(/^topic=/i)
+		console.log("case topic")
+		topic_part = data_part.replace(/^topic=/i, "")
+		resource.addTopic topic_part
+	else if data_part.match(/^file_name=/i)
+		console.log("case file name")
+		fname_part = data_part.replace(/^file_name=/i, "")
+		resource.addFileName fname_part
+		
+	resource

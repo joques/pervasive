@@ -8,20 +8,20 @@ exports.createManager = ->
 	
 	# create six local managers
 	local_managers = []
-	for num in [0..5]
-		do local_managers[num] = new LocalManager ports[num]
-		
-	
+	for num_man in [0..5]
+		do (num_man) -> local_managers[num_man] = new LocalManager ports[num_man]
+				
 	# Create the devices
 	# Note that the port numbers are the bindings between devices and local managers
 
 	device_names = ["Timbuktu", "Gao", "Jos", "Mombassa", "Harare", "Cairo"];
 
-	devices = new Array(6);
+	devices = []
 	for num_dev in [0..5]
-		do devices[num_dev] = new Device device_names[num_dev], ports[num_dev])
-		devices[num_dev].setBehavior();
-		devices[num_dev].connect();
+		do (num_dev) ->
+			devices[num_dev] = new Device device_names[num_dev], ports[num_dev]
+			devices[num_dev].setBehavior()
+			devices[num_dev].connect()
 	
 	# Create several queues and bind them to Local Managers -- We create four queues
 	
@@ -37,15 +37,17 @@ exports.createManager = ->
 	queue3.addLocalManager local_managers[4]
 	queue3.addLocalManager local_managers[5]
 
-	var queue4 = CS.createQueue "entertainment"
+	queue4 = CS.createQueue "entertainment"
 	queue4.addLocalManager local_managers[1]
 	queue4.addLocalManager local_managers[3]
 	queue4.addLocalManager local_managers[5]
 	
 	# Create the CentralManager and bind it to the queues
 	
-	commander = CS.createCentralManager();
+	commander = CS.createCentralManager()
 	commander.addQueue queue1
 	commander.addQueue queue2
 	commander.addQueue queue3
 	commander.addQueue queue4
+	
+	commander

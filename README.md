@@ -59,7 +59,7 @@ The resource will be assigned depending on the topics and the content of the fil
 
 # Coffee Script
 
-Who can really resist coffeescript these days? There is a coffee-script port of Pervasive coming out soon. Check it out.
+Who can really resist coffeescript these days? There is a coffee-script port of Pervasive coming out soon. The new coffeescript port is available in pervasive_coffee
 
 ### Author
 

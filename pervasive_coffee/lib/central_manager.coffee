@@ -4,5 +4,6 @@ exports.CentralManager = class CentralManager
 		
 	addQueue: (queue) -> @queues.push queue
 	
-	dispatchResource: (resource) -> 
+	dispatchResource: (resource) ->
+		console.log("resource: topics #{resource.topics} and file name #{resource.file_name}")
 		queue.receiveResource resource for queue in @queues

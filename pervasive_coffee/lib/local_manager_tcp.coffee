@@ -8,18 +8,24 @@ path	=	require 'path';
 
 
 exports.LocalManagerTCP = class LocalManagerTCP
-	constructor: (port_number) -> 
+	constructor: (port_number) ->
 		@devices = []
-		@manager_server = net.createServer((socket) ->
-			@devices.push socket
+		
+		# this is to avoid scoping issues
+		self_devices = @devices
+		
+		@manager_server = net.createServer (socket) ->
+			self_devices.push socket
 			socket.write "Hello\r\n"
-			socket.on('end', -> 
-			pos = @devices.indexOf(socket);
-			@devices.splice(pos, 1) if pos not -1
-			))
-			@server_manager.listen port_number, "localhost"
+			socket.on 'end', ->
+				pos = self_devices.indexOf(socket)
+				self_devices.splice(pos,1) if pos not -1
+		.listen port_number, "localhost"
 			
 		receiveResource: (resource) ->
+			self_devices = @devices
 			resource_file_path = path.join __dirname, '../../resources', resource.file_name
 			rs = fs.createReadStream resource_file_path
-			sys.pump(rs, device, (err) -> throw err) for device in @devices
+			sys.pump rs, device, (err) ->
+				throw err
+			for device in self_devices

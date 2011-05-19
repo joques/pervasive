@@ -7,11 +7,11 @@ exports.createManager = ->
 	
 	# create six local managers
 	local_managers = []
-	for num in [0..5]
-		do local_managers[num] = new LocalManagerTCP ports[num]
+	for num_man in [0..5]
+		do (num_man) -> local_managers[num_man] = new LocalManagerTCP ports[num_man]
 			
 	# Create several queues and bind them to Local Managers -- We create four queues
-	
+		
 	queue1 = CS.createQueue "energy"
 	queue1.addLocalManager local_managers[0] 
 	queue1.addLocalManager local_managers[1]
@@ -31,7 +31,7 @@ exports.createManager = ->
 	
 	# Create the CentralManager and bind it to the queues
 	
-	commander = CS.createCentralManager();
+	commander = CS.createCentralManager()
 	commander.addQueue queue1
 	commander.addQueue queue2
 	commander.addQueue queue3

@@ -1,46 +1,32 @@
-var sys							=	require('sys');
-var http						=	require('http');
-var Resource				=	require('./lib/resource').Resource;
-var setup						=	require('./lib/setup_tcp');
+sys							=	require 'sys'
+http						=	require 'http'
+Resource				=	require('./lib/resource').Resource
+setup						=	require './lib/setup_tcp'
 
-var commander = setup.createManager();
+commander = setup.createManager()
 
-// this server handles POST request
-var server = http.createServer(function(req, res) {
-	res.writeHead(200, {'Content-Type': 'text/html'});
-	
-	// this should be a request object, which handles the params
-	var reqData = "";
-	
-	req.addListener('data', function(data) {
-		reqData += data.toString();
-	}).addListener('end', function() {
-		process_resource(reqData);
-		res.end("New ad received!");
-	});	
-});
+# this server handles POST request
 
-server.listen(8080);
+server = http.createServer (req,res) ->
+	res.writeHead 200, {'Content-Type': 'text/html'}
+	reqData = ""
+	reqData.addListener 'data', (data) ->
+		reqData += data.toString()
+	.addListener 'end', ->
+		process_resource reqData
+		res.end "New ad received!"
+.listen(8080)
 
-function process_resource(resource_data) {
-	
-	// First, extract the different parts of the request
-	var res_parts = resource_data.split("&");
-	
-	var cur_res = new Resource();
-	
-	// add parameters to the resource
-	for (var m in res_parts) {
-		if (res_parts[m].match(/^topic=/i)) {
-			var topic_part = res_parts[m].replace(/^topic=/i, "");
-			cur_res.addTopic(topic_part);
-		}
 
-		if (res_parts[m].match(/^file_name=/i)) {
-			var fname_part = res_parts[m].replace(/^file_name=/i, "");
-			cur_res.addFileName(fname_part);
-		}		
-	}
+process_resource = (resource_data) ->
+	res_parts = resource_data.split("&")
+	current_resource = new Resource()
 	
+	for pos in [0..res_parts.length] 
+		do if res_parts[pos].match(/^topic=/i)
+				topic_part = res_parts[pos].replace(/^topic=/i, "")
+				current_resource.addTopic topic_part
+			if res_parts[pos].match(/^file_name=/i)
+				fname_part = res_parts[pos].replace(/^file_name=/i, "")
+				current_resource.addFileName fname_part
 	commander.dispatchResource(cur_res);
-}
