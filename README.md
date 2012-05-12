@@ -22,7 +22,7 @@ When cloning the repository, make sure to include the submodules (with the right
 	brew install node
 </code></pre>
 
-If you do not own /usr/local, you should use sudo
+If you do not own /usr/local, you should use sudo. You can own /usr/local using the chown command
 You should also install npm, the node.js package manager.
 
 # App Usage
