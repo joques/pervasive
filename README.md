@@ -28,7 +28,8 @@ You should also install npm, the node.js package manager.
 # App Usage
 To use our small app, first start the web server 
 <pre><code>
-	node pervasive_server_ws or
+	node pervasive_server_ws 
+	or
 	node pervasive_server_tcp
 </code></pre>
 
