@@ -19,9 +19,10 @@ If you are on Mac OS X and using homebrew as your package manager, the following
 When cloning the repository, make sure to include the submodules (with the right versions).
 
 <pre><code>
-[sudo] brew install node
+	brew install node
 </code></pre>
 
+If you do not own /usr/local, you should use sudo
 You should also install npm, the node.js package manager.
 
 # App Usage
