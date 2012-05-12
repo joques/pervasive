@@ -19,7 +19,7 @@ If you are on Mac OS X and using homebrew as your package manager, the following
 When cloning the repository, make sure to include the submodules (with the right versions).
 
 <pre><code>
-	brew install node
+	brew install --force -v node
 </code></pre>
 
 If you do not own /usr/local, you should use sudo. You can own /usr/local using the chown command
