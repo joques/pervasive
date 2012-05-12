@@ -4,7 +4,7 @@ Pervasive is a simple prototype of a distributed and asynchronous resource dispa
 resource to Pervasive indicating the topics that resource is related to as well as the name of the file, where the content of the resource is
 stored. Pervasive then identifies the devices, which might be interested in displaying the resource.<br/>
 
-Pervasive is implemented in Node.js
+Pervasive is implemented in Node.js (using both javascript and coffeescript)
 
 # Node.js Installation
 
